@@ -1,16 +1,11 @@
 # urls.py
 from django.urls import path
-# from .views import RegistroView
-# from .views import LoginView
-# from .views import LogoutView
-# from .views import login_template
-# from .views import register_template
+from .views import api_register
+from .views import api_login
+from .views import api_logout
 
-
-# urlpatterns = [
-#     path('api/register/', RegistroView.as_view(), name='api-register'),
-#     path('api/login/', LoginView.as_view(), name='api-login'),
-#     path('api/logout/', LogoutView.as_view(), name='api-logout'),
-#     path('login/', login_template, name='login-template'),
-#     path('register/', register_template, name='register-template'),
-# ]
+urlpatterns = [
+    path('register/', api_register, name='register'),
+    path('login/', api_login, name='login'),
+    path('logout/', api_logout, name='logout'),
+]

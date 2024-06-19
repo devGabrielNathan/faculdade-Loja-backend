@@ -43,11 +43,6 @@ class Product(models.Model):
         blank=False,
         null=False
     )
-    carousel = models.ImageField(
-        upload_to='carousel/images/',
-        blank=False,
-        null=False
-    )
     status = models.CharField(
         max_length=255,
         choices=STOCK_CHOICES,

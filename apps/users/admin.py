@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Client
+from .models import User
 
 
-@admin.register(Client)
-class ClientAdmin(admin.ModelAdmin):
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
     class Meta:
-        model = Client
+        model = User
         fields = '__all__'
