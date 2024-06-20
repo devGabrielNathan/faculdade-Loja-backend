@@ -1,13 +1,14 @@
 from django.urls import path
-from . import views
+from .views import CategoryController
+from .views import SubcategoryController
 
 
 urlpatterns = [
     # URLs para categorias
-    path('', views.api_categories),
-    path('category/<uuid:pk>/', views.api_category),
+    path('categories/', CategoryController.categories),
+    path('category/<uuid:pk>/', CategoryController.category),
 
     # URLs para subcategorias
-    path('subcategories/', views.api_subcategories),
-    path('subcategory/<uuid:pk>/', views.api_subcategory),
+    path('subcategories/', SubcategoryController.subcategories),
+    path('subcategory/<uuid:pk>/', SubcategoryController.subcategory),
 ]

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Order
 from .models import OrderItem
+from .models import Purchase
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -14,5 +15,5 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
-    model = OrderItem
+    model = Purchase
     fields = '__all__'

@@ -3,35 +3,73 @@ from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.decorators import api_view
+import jwt
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 
 
-@api_view(['POST'])
-def api_register(request):
-    serializer = UserSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
+class UserController:
+    @api_view(['POST'])
+    def register(request):
+        serializer = UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-    return Response(serializer.data)
+        return Response(serializer.data)
 
 
-@api_view(['POST'])
-def api_login(request):
-    email = request.data['email']
-    password = request.data['password']
+    @api_view(['POST'])
+    def login(request):
+        email = request.data['email']
+        password = request.data['password']
 
-    user = User.objects.filter(email=email).first()
+        user = User.objects.filter(email=email).first()
 
-    if user is None:
-        raise AuthenticationFailed('User not found!')
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+        
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+        
+        expiry_time = datetime.now(timezone.utc) + timedelta(minutes=60)
+        
+        payload = {
+            'user_uuid': str(user.user_uuid),
+            'exp': expiry_time,
+            'iat': datetime.now(timezone.utc),
+        }
+        
+        token = jwt.encode(payload, 'secret', algorithm='HS256')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        
+        response.data = {
+            'jwt': token
+        }
+
+        return response
     
-    if not user.check_password(password):
-        raise AuthenticationFailed('Incorrect password!')
     
-    return Response({
-        'message': 'success'
-    })
+    @api_view(['GET'])
+    def user(request):
+        token = request.COOKIES.get('jwt')
 
+        if not token:
+            raise AuthenticationFailed('Unauthenticated')
+        
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except:
+            raise AuthenticationFailed('Unauthenticated')
+        
+        # user = User.objects.get(payload["user_uuid"])
+        user = User.objects.filter(user_uuid=payload["user_uuid"]).first()
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+        # return Response(token)
 
-@api_view(['POST'])
-def api_logout(request):
-
+    @api_view(['POST'])
+    def api_logout(request):

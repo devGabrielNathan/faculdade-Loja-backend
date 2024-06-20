@@ -1,8 +1,8 @@
 from django.urls import path
-from . import views
+from .views import ProductController
 
 
 urlpatterns = [
-    path('', views.api_products),
-    path('<uuid:pk>/', views.api_product),
+    path('products/', ProductController.products),
+    path('product/<uuid:pk>/', ProductController.product),
 ]
