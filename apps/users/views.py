@@ -10,6 +10,7 @@ from datetime import timezone
 
 
 class UserController:
+    # Registro
     @api_view(['POST'])
     def register(request):
         serializer = UserSerializer(data=request.data)
@@ -19,6 +20,7 @@ class UserController:
         return Response(serializer.data)
 
 
+    # Login
     @api_view(['POST'])
     def login(request):
         email = request.data['email']
@@ -53,6 +55,7 @@ class UserController:
         return response
     
     
+    # Autenticacao
     @api_view(['GET'])
     def user(request):
         token = request.COOKIES.get('jwt')
@@ -71,5 +74,14 @@ class UserController:
         return Response(serializer.data)
         # return Response(token)
 
+
+    # Logout
     @api_view(['POST'])
-    def api_logout(request):
+    def logout(request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'success'
+        }
+
+        return response
