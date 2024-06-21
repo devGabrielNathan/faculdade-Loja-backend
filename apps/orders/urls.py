@@ -1,11 +1,15 @@
 from django.urls import path
-from . import views
+from .views import OrderController
+from .views import OrderItemController
+from .views import PurchaseController
 
 urlpatterns = [
-    path('orders/', views.api_orders, name='api_orders'),
-    path('order/<uuid:pk>/', views.api_order, name='api_order'),
-    path('orderitems/', views.api_order_items, name='api_order_items'),
-    path('orderitems/<uuid:pk>/', views.api_order_item, name='api_order_item'),
-    path('purchases/', views.api_purchases, name='api_purchases'),
-    path('purchase/<uuid:pk>/', views.api_purchase, name='api_purchase'),
+    path('orders/', OrderController.orders_controller),
+    path('order/<uuid:pk>/', OrderController.order_controller),
+
+    path('orderitems/', OrderItemController.orders_items_controller),
+    path('orderitems/<uuid:pk>/', OrderItemController.order_item_controller),
+
+    path('purchases/', PurchaseController.purchases_controller),
+    path('purchase/<uuid:pk>/', PurchaseController.purchase_controller),
 ]

@@ -8,11 +8,11 @@ from .models import Purchase
 from .models import OrderItem
 from rest_framework.response import Response
 from .repositories import OrderDao
-from .repositories import OrderItem
+from .repositories import OrderItemDao
 from .repositories import PurchaseDao
 
-
-class Order:
+# TODO Arrumar toda a lógica
+class OrderController:
     # Faz a solicitação de todas as orders do banco de dados
     @staticmethod
     @api_view(['GET', 'POST'])
@@ -50,7 +50,7 @@ class Order:
             return Response(status=204)
 
 
-class OrderItem:
+class OrderItemController:
     # Faz a solicitação de um  as ordersitems do banco de dados
     @staticmethod
     @api_view(['GET', 'POST'])
@@ -85,7 +85,7 @@ class OrderItem:
             return Response(status=204)
 
 
-class Purchase:
+class PurchaseController:
     @staticmethod
     @api_view(['GET', 'POST'])
     def purchases_controller(request):
