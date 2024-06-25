@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Order
-from .models import Purchase
+# from .models import Purchase
 from .models import OrderItem
 
 
@@ -11,11 +11,11 @@ class OrderAdmin(admin.ModelAdmin):
         fields = '__all__'
 
 
-@admin.register(Purchase)
-class PurchaseAdmin(admin.ModelAdmin):
-    class Meta:
-        model = Purchase
-        fields = '__all__'
+# @admin.register(Purchase)
+# class PurchaseAdmin(admin.ModelAdmin):
+#     class Meta:
+#         model = Purchase
+#         fields = '__all__'
 
 
 @admin.register(OrderItem)

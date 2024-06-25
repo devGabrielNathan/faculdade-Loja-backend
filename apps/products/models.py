@@ -4,7 +4,6 @@ from uuid import uuid4
 
 
 class Product(models.Model):
-    # Testar
     STOCK_CHOICES = (
         ('IN_STOCK', 'in_stock'),
         ('OUT_OF_STOCK', 'out_of_stock')
@@ -64,10 +63,10 @@ class Product(models.Model):
     )
 
 
+    def __str__(self) -> str:
+        return self.name
+    
+
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
-
-
-    def __str__(self) -> str:
-        return self.name

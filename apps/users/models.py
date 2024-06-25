@@ -40,6 +40,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+    def __str__(self) -> str:
+        return f"{self.email}"
+
     def has_perm(self, perm, obj=None):
         return True
 

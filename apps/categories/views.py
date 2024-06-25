@@ -14,6 +14,7 @@ class CategoryController:
     def category(request, pk):
         return Response(CategoryDao.get_category_by_id(pk, json=True))
 
+
 class SubcategoryController:
     @api_view(['GET'])
     def subcategories(request):
@@ -22,5 +23,5 @@ class SubcategoryController:
 
     @api_view(['GET'])
     def subcategory(request, pk):
-        return Response(SubCategoryDao.get_category_by_id(pk, json=True))
+        return Response(SubCategoryDao.get_subcategory_by_id(pk, json=True))
 

@@ -4,8 +4,8 @@ from .views import UserController
 
 urlpatterns = [
     # Cookies para usuários não cadastrados
-    path('user/', UserController.user),
-    path('login/', UserController.login),
-    path('logout/', UserController.logout),
-    path('register/', UserController.register),
+    path('profile/', UserController.user_profile_controller),
+    path('login/', UserController.login_controller),
+    path('logout/', UserController.logout_controller),
+    path('register/', UserController.register_controller),
 ]

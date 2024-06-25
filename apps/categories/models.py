@@ -22,13 +22,14 @@ class Category(models.Model):
     )
 
 
+    def __str__(self) -> str:
+        return self.name
+    
+
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
-
-    def __str__(self) -> str:
-        return self.name
 
 class SubCategory(models.Model):
     subcategory_uuid = models.UUIDField(
@@ -48,13 +49,17 @@ class SubCategory(models.Model):
     active = models.BooleanField(
         default=True
     )
-    category_fk = models.ForeignKey(Category, related_name='subcategory', on_delete=models.CASCADE)
+    category_fk = models.ForeignKey(
+        Category,
+        related_name='subcategories',  # Renomeie para 'subcategories' para o relacionamento inverso correto
+        on_delete=models.CASCADE
+    )
+    
 
+    def __str__(self) -> str:
+        return f'{self.category_fk.name} - {self.name}'
+    
 
     class Meta:
         verbose_name = 'Subcategory'
         verbose_name_plural = 'Subcategories'
-
-
-    def __str__(self) -> str:
-        return f'{self.category_fk} - {self.name}'
