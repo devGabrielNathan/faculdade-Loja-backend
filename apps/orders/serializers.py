@@ -5,13 +5,15 @@ from .models import OrderItem
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    model = Order
-    fields = '__all__'
+    class Meta:
+        model = Order
+        fields = '__all__'
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    model = OrderItem
-    fields = '__all__'
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
 
 
 # class PurchaseSerializer(serializers.ModelSerializer):

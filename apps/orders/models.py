@@ -32,15 +32,15 @@ class Order(models.Model):
     )
 
 
-    # def calculate_total(self):
-    #     total = 0
-    #     for item in self.orderitems.all():
-    #         total += item.get_subtotal()
-    #     return total
+    def calculate_total(self):
+        total = 0
+        for item in self.orderitems.all():
+            total += item.get_subtotal()
+        return total
     
 
     def __str__(self) -> str:
-        return f"{self.user_fk.name}"
+        return f"{self.order_uuid}"
     
 
     class Meta:
@@ -70,7 +70,7 @@ class OrderItem(models.Model):
 
     def __str__(self) -> str:
         subtotal = self.get_subtotal()
-        return f"{self.order_fk.user_fk.name}: {self.product_fk.name} x {self.quantity} - Total: R${subtotal:.2f}"
+        return f"{self.order_fk} - {self.product_fk.name} x {self.quantity} = R${subtotal:.2f}"
 
 
 # class Purchase(models.Model):
